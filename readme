@@ -1,0 +1,136 @@
+@startuml
+
+class Cliente {
+  -nrCliente: int
+  -nome: String
+  -email: String
+  -cpf: String
+  -telefone: String
+  -endereco: String
+  -fotoPerfil: String
+  -dataCadastro: Date
+  +getNome(): String
+  +getEmail(): String
+  +getCPF(): String
+  +editarConta(): void
+  +editarPerfil(...): void
+}
+
+class Usuario {
+  -nrUsuario: int
+  -nome: String
+  -apelido: String
+  -senha: String
+  -dataNasc: Date
+  -perfil: String
+  -cliente: Cliente
+  +getNome(): String
+  +getApelido(): String
+  +getPerfil(): String
+  +login(): String
+  +logout(): String
+}
+
+class Produto {
+  -nrProduto: int
+  -nomeProduto: String
+  -descricao: String
+  -quantidade: int
+  -valor: double
+  -dataCadastro: Date
+  +getNomeProduto(): String
+  +getDescricao(): String
+  +getQuantidade(): int
+  +getValor(): double
+  +atualizarEstoque(qtd: int): void
+  +exibirInformacoes(): String
+}
+
+class ItemPedido {
+  -nrItemPedido: int
+  -produto: Produto
+  -quantidade: int
+  -valorUnitario: double
+  +getProduto(): Produto
+  +getQuantidade(): int
+  +getSubtotal(): double
+}
+
+class Pedido {
+  -nrPedido: int
+  -data: Date
+  -status: StatusPedido
+  -cliente: Cliente
+  -itens: List<ItemPedido>
+  -formaPagamento: String
+  +adicionarItem(produto: Produto, qtd: int): void
+  +removerItem(item: ItemPedido): void
+  +calcularTotal(): double
+  +finalizar(): void
+  +cancelar(): void
+  +getResumo(): String
+}
+
+enum StatusPedido {
+  ABERTO
+  FINALIZADO
+  CANCELADO
+}
+
+class CarrinhoCompras {
+  -nrCarrinhoCompras: int
+  -cliente: Cliente
+  -itens: List<ItemCarrinho>
+  +adicionarItem(produto: Produto, quantidade: int): void
+  +removerItem(produto: Produto): void
+  +limpar(): void
+  +getTotal(): double
+  +finalizarCarrinho(): Pedido
+}
+
+class ItemCarrinho {
+  -produto: Produto
+  -quantidade: int
+  -precoUnitario: double
+  +getSubtotal(): double
+}
+
+class Venda {
+  -nrVenda: int
+  -data: Date
+  -total: double
+  -cliente: Cliente
+  -itens: List<ItemVenda>
+  +getTotal(): double
+  +resumoVenda(): String
+  +cancelar(): void
+}
+
+class ItemVenda {
+  -produto: Produto
+  -quantidade: int
+  -valorUnitario: double
+  +getSubtotal(): double
+}
+
+class Pagamento {
+  -nrPagamento: int
+  -pedido: Pedido
+  -valorPago: double
+  -formaPagamento: String
+  -dataPagamento: Date
+  +getValorPago(): double
+  +getResumoPagamento(): String
+}
+
+Cliente "1" <-- "1" Usuario
+Cliente "1" --> "*" Pedido
+Pedido "1" --> "*" ItemPedido
+Pedido "*" --> "1" Cliente
+CarrinhoCompras "1" --> "*" ItemCarrinho
+Venda "1" --> "*" ItemVenda
+Venda "*" --> "1" Cliente
+Pagamento "*" --> "1" Pedido
+
+@enduml
+------------------------------------------------------------------------------------------------------------------------

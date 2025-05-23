@@ -1,0 +1,15 @@
+
+| Símbolo | Visibilidade  | O que significa                                             |
+| ------- | ------------- | ----------------------------------------------------------- |
+|   +     |   Público     | Pode ser acessado por qualquer classe.                      |
+|   -     |   Privado     | Pode ser acessado apenas dentro da própria classe.          |
+|   #     |   Protegido   | Pode ser acessado pela própria classe e por subclasses.     |
+|   ~     |   Pacote      | Pode ser acessado por outras classes do mesmo pacote.       |
+_________________________________________________________________________________________
+
+/src
+  /model         -> classes Cliente, Produto, Pedido, etc.
+  /dao           -> acesso ao banco (ClienteDAO, ProdutoDAO, etc.)
+  /controller    -> regras de negócio
+  /view          -> menus e interface de terminal (ou depois Swing/JavaFX)
+  /database      -> scripts SQL, conexões (ex: DBConnection.java)
